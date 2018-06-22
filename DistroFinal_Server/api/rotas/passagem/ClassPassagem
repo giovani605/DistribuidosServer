@@ -17,5 +17,10 @@ this.parcela;
 setid(id){
 this.id = id;
 }
+
+
+
 }
+
+
 module.exports = Passagem;

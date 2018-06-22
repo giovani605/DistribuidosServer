@@ -32,11 +32,14 @@ router.get('/:id', (req,res,next) => {
 
 // recupera uma lista com todas as passagens disponiveis
 router.get('/', (req,res,next) => {
-
+	var data = req.body.data
+	var origem = req.body.origem
+	var destino = req.body.destino
 	
-	
-  var a = gerenciador.listar();
+	data = "hj"
+  var a = gerenciador.filtrar(data, destino, origem);
   res.status(200).json({
+	  mensagem: "teste",
     dados: a
   });
   return;
