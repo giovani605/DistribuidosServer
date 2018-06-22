@@ -36,7 +36,6 @@ router.get('/', (req,res,next) => {
 	var origem = req.body.origem
 	var destino = req.body.destino
 	
-	data = "hj"
   var a = gerenciador.filtrar(data, destino, origem);
   res.status(200).json({
 	  mensagem: "teste",
