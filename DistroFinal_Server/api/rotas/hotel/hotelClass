@@ -1,0 +1,20 @@
+"use strict";
+class Hotel{
+
+constructor(){
+this.id;
+this.data;
+this.local;
+this.numero;
+this.comprada;
+this.dataSaida;
+this.qtdQuartos;
+this.idade;
+this.cartao;
+this.parcela;
+}
+setid(id){
+this.id = id;
+}
+}
+module.exports = Hotel;

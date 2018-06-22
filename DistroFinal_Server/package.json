@@ -1,0 +1,26 @@
+{
+  "name": "serverrest",
+  "version": "1.0.0",
+  "description": "Servidor de Restful",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giovani605/distribuidos_3.git"
+  },
+  "keywords": [
+    "node",
+    "rest"
+  ],
+  "author": "Giovani Bossoni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giovani605/distribuidos_3/issues"
+  },
+  "homepage": "https://github.com/giovani605/distribuidos_3#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
