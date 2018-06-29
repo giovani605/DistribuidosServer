@@ -16,10 +16,11 @@ parcelamento
 
 ## para hotel
 destino
-data entrada
-data saida
+
 
 comprar
+data entrada
+data saida
 numero quartos
 qtdPessoas
 idade

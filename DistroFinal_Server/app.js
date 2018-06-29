@@ -7,6 +7,7 @@ const passagens = require('./api/rotas/passagem/passagemREST.js');
 const hotel = require('./api/rotas/hotel/hotelREST.js');
 const bodyParser =  require('body-parser');
 app.use(bodyParser.json());
+// defino quem lida com essa rota
 app.use('/passagem',passagens);
 app.use('/hotel',hotel);
 

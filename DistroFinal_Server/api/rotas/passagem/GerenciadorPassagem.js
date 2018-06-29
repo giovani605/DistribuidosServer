@@ -7,11 +7,13 @@ const Passagem = require('./ClassPassagem');
 var cont = 0;
 criarDados();
 
+// para inserir os dados
 function criarDados(){
   mapa.set(cont+"",cria(cont,'hj', 'cornelio', 'LONGE',20,'ida','nda'));
   mapa.set(cont+"",cria(cont,'hj', 'curitiba', 'LONGE',20,'ida e volta','nda'));
 }
 
+// facilita a inserção dos dados
 function cria(id,data_inicio,origem,destino,limite,tipo,data_volta){
   var pass = new Passagem();
   pass.id = id;
@@ -25,7 +27,7 @@ function cria(id,data_inicio,origem,destino,limite,tipo,data_volta){
   cont++;
   return pass;
 }
-// essa funcao testa se a passagem eh valida
+// essa funcao recupera uma passagem do banco
 function consultarPassagem(id){
   return mapa.get(id);
 }
@@ -40,6 +42,8 @@ function listarPassagem(){
   }
   return lista;
 }
+
+// tenta comprar uma passagem
 function comprar(id,cartao,parcela,idade,qtdPessoas){
 	var pass = consultarPassagem(id);
 	if(pass == null){
@@ -51,12 +55,14 @@ function comprar(id,cartao,parcela,idade,qtdPessoas){
 	}
   return false;
 }
+// se a comprar for possivel efetivar
 function 	efetivarCompra(pass,qtdPessoas,cartao,parcela,idade){
 	pass.numero += qtdPessoas;
 	pass.cartao = cartao;
   pass.parcela = parcela;
   pass.idade = idade;
 }
+// testa se a compra é possivel
 function testeCompra(pass,qtdPessoas){
 	if(pass.numero + qtdPessoas > pass.limite){
     return false;
@@ -64,7 +70,7 @@ function testeCompra(pass,qtdPessoas){
 	return true;
 }
 
-// retorna true ou false
+// retorna true ou false para fazer o filtro das passagens
 function espec(pass,data, destino, origem,opcao,data_volta){
 	if(data != null){
 		if(pass.data != data){
@@ -95,6 +101,7 @@ function espec(pass,data, destino, origem,opcao,data_volta){
 	
 }
 
+// filtra as passagens pelos parametros
 function filtrar(data, destino, origem,opcao,dataVolta) {
 	if(data == null && destino == null && origem == null && opcao == null)
 		return listarPassagem()
@@ -117,40 +124,3 @@ exports.comprar = comprar;
 exports.consultar = consultarPassagem;
 exports.listar = listarPassagem;
 exports.filtrar = filtrar;
-
-// codigo antigo
-// function criarPassagem(passagem) {
-// if(testarPassagem(passagem)){
-// salvar(passagem);
-// console.log("salvei a passagem");
-// return true;
-// }
-// else{
-// return false;
-// }
-// }
-// function salvar(passagem){
-// // criar um id
-// console.log(passagem);
-// let id = cont;
-// passagem.id = id;
-// // add no map
-// mapa.set(id,passagem);
-// cont++;
-// listarPassagem();
-// }
-// function testarPassagem(passagem){
-// if(mapa.size == 0){
-// return true;
-// }
-// for(var a of mapa.values()){
-// console.log(a);
-// if(a.data == passagem.data &&
-// a.origem == passagem.origem &&
-// a.destino == passagem.destino &&
-// a.numero == passagem.numero){
-// return false;
-// }
-// }
-// return true;
-// }

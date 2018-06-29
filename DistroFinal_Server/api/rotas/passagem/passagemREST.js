@@ -5,19 +5,10 @@ const router = express.Router();
 const gerenciador = require('./GerenciadorPassagem.js');
 const Passagem = require('./ClassPassagem');
 
-// aqui eu vou linda com os get request
+
 var cont = 0;
 
-function extrairDados(body) {
-  var pass = new Passagem();
-  pass.data = body.data;
-  pass.origem = body.origem;
-  pass.destino = body.destino;
-  pass.numero = body.numero;
-  pass.tipo = body.tipo;
-  return pass;
-}
-
+// lido com get em passagens especificas
 router.get('/:id', (req, res, next) => {
   // recuperar dados do request
   // console.log(req);
@@ -30,7 +21,7 @@ router.get('/:id', (req, res, next) => {
 });
 
 
-// recupera uma lista com todas as passagens disponiveis
+// recupera uma lista com todas as passagens disponiveis com filtro
 router.get('/', (req, res, next) => {
   var data = req.param("data");
   if (data == "")
@@ -54,7 +45,7 @@ router.get('/', (req, res, next) => {
   return;
 });
 
-
+// o usuario digitou todos os dados?
 function testarDadosCompra(cartao, parcela, idade, numeroPessoas) {
   if (numeroPessoas == null || numeroPessoas <= 0) {
     return false;
