@@ -1,8 +1,30 @@
 
 
 # DistroFinal_Server
-oi
+## para passagem
+filtrar
+opçao (ida e ida e volta)
+origem 
+destino
+data
+data volta
 
+comprar
+qtdPessoas
+cartao
+parcelamento
+
+## para hotel
+destino
+data entrada
+data saida
+
+comprar
+numero quartos
+qtdPessoas
+idade
+cartao
+parcelamento
 
 ## Usage
 

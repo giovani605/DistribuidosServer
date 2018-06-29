@@ -7,5 +7,5 @@ const port = 8080;
 // cria um servidor no localhost:8080
 // o modulo Express vai lidar com os resquest
 const server = http.createServer(app);
-
+console.log("iniciando Server:8080");
 server.listen(port);

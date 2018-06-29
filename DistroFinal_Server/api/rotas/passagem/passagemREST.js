@@ -8,79 +8,99 @@ const Passagem = require('./ClassPassagem');
 // aqui eu vou linda com os get request
 var cont = 0;
 
-function extrairDados(body){
+function extrairDados(body) {
   var pass = new Passagem();
   pass.data = body.data;
   pass.origem = body.origem;
-  pass.destino =  body.destino;
+  pass.destino = body.destino;
   pass.numero = body.numero;
   pass.tipo = body.tipo;
   return pass;
 }
 
-router.get('/:id', (req,res,next) => {
+router.get('/:id', (req, res, next) => {
   // recuperar dados do request
   // console.log(req);
   var id = req.params.id;
   var obj = gerenciador.consultar(id);
   res.status(200).json({
-    dados:obj
+    dados: obj
   });
 
 });
 
 
 // recupera uma lista com todas as passagens disponiveis
-router.get('/', (req,res,next) => {
-	var data = req.body.data
-	var origem = req.body.origem
-	var destino = req.body.destino
-	
-  var a = gerenciador.filtrar(data, destino, origem);
+router.get('/', (req, res, next) => {
+  var data = req.param("data");
+  if (data == "")
+    data = null;
+  var origem = req.param("origem")
+  if (origem == "")
+    origem = null;
+  var destino = req.param("destino")
+  if (destino == "")
+    destino = null;
+  var opcao = req.param("opcao")
+  if (opcao == "")
+    opcao = null;
+  var dataVolta = req.param("dataVolta")
+  if (dataVolta == "")
+    dataVolta = null;
+  var a = gerenciador.filtrar(data, destino, origem, opcao, dataVolta);
   res.status(200).json({
-	  mensagem: "teste",
     dados: a
   });
   return;
 });
 
 
-function testarDadosCompra(cartao,parcela,idade){
-  if(cartao == null){
+function testarDadosCompra(cartao, parcela, idade, numeroPessoas) {
+  if (numeroPessoas == null || numeroPessoas <= 0) {
     return false;
   }
-  if(idade == null){
+  if (cartao == null) {
     return false;
   }
-  if(parcela == null){
+  if (idade == null) {
     return false;
   }
-
+  if (parcela == null) {
+    return false;
+  }
   return true;
 }
 
 // aqui o cliente quer comprar a passagem
-router.post('/:id', (req,res,next) =>{
+router.post('/:id', (req, res, next) => {
   var id = req.params.id;
   // extrair variaveis que vem no body
+  let numeroPessoas = req.body.numeroPessoas;
+  if (numeroPessoas == "")
+    numeroPessoas = null;
   let cartao = req.body.cartao;
+  if (cartao == "")
+    cartao = null;
   let parcela = req.body.parcela;
+  if (parcela == "")
+    parcela = null;
   let idade = req.body.idade;
+  if (idade == "")
+    idade = null;
 
-  if(!testarDadosCompra(cartao,parcela,idade)){
+  if (!testarDadosCompra(cartao, parcela, idade, numeroPessoas)) {
     res.status(200).json({
-      message:'dados invalidos'
+      message: 'dados invalidos'
     });
     return;
   }
-  console.log("dsadsa");
-  if(gerenciador.comprar(id,cartao,parcela,idade)){
+  if (gerenciador.comprar(id, cartao, parcela, idade, numeroPessoas)) {
     res.status(200).json({
-      message:'comprada com sucesso'
+      message: 'passagem comprada com sucesso'
     });
-  }else{
+  } else {
     res.status(200).json({
-      message:'passagem nao disponivel'
+      message: 'passagem não disponivel'
     });
   }
 });
