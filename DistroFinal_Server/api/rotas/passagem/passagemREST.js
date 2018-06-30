@@ -4,6 +4,9 @@ const express = require('express');
 const router = express.Router();
 const gerenciador = require('./GerenciadorPassagem.js');
 const Passagem = require('./ClassPassagem');
+const Logger = require('Logger/Logger.js');
+const log = new Logger('log.txt');
+log.addLog("iniciei o logger");
 
 
 var cont = 0;
