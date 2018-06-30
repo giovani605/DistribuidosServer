@@ -3,8 +3,10 @@ class Hotel {
 
     constructor() {
         this.id;
-        this.data;
+        this.checkin;
+        this.checkout;
         this.local;
+        this.limite;
         this.numero;
         this.comprada;
         this.dataSaida;

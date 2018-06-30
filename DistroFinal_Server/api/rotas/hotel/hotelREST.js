@@ -10,21 +10,29 @@ var cont = 0;
 
 
 
-router.get('/:id', (req,res,next) => {
+router.get('/:id', (req, res, next) => {
   // recuperar dados do request
-  //  console.log(req);
   var id = req.params.id;
   var obj = gerenciador.consultar(id);
   res.status(200).json({
-    dados:obj
+    dados: obj
   });
 
 });
 
 
 // recupera uma lista com todas as passagens disponiveis
-router.get('/', (req,res,next) => {
-  var a = gerenciador.listar();
+router.get('/', (req, res, next) => {
+  var checkin = req.param("checkin")
+  if (checkin == "")
+    checkin = null;
+  var checkout = req.param("checkout")
+  if (checkout == "")
+    checkout = null;
+  var local = req.param("local")
+  if (local == "")
+    local = null;
+  var a = gerenciador.filtrar(checkin,checkout,local);
   res.status(200).json({
     dados: a
   });
@@ -32,20 +40,14 @@ router.get('/', (req,res,next) => {
 });
 
 
-function testarDadosCompra(cartao,parcela,idade,datasaida,qtdQuartos){
-  if(cartao == null){
+function testarDadosCompra(cartao, parcela, qtdQuartos) {
+  if (cartao == null) {
     return false;
   }
-  if(idade == null){
+  if (parcela == null) {
     return false;
   }
-  if(parcela == null){
-    return false;
-  }
-  if(datasaida == null){
-    return false;
-  }
-  if(qtdQuartos == null){
+  if (qtdQuartos == null) {
     return false;
   }
 
@@ -53,29 +55,26 @@ function testarDadosCompra(cartao,parcela,idade,datasaida,qtdQuartos){
 }
 
 // aqui o cliente quer comprar a passagem
-router.post('/:id', (req,res,next) =>{
+router.post('/:id', (req, res, next) => {
   var id = req.params.id;
   // extrair variaveis que vem no body
-  let datasaida = req.body.dataSaida;
   let qtdQuartos = req.body.qtdQuartos;
   let cartao = req.body.cartao;
   let parcela = req.body.parcela;
-  let idade = req.body.idade;
 
-  if(!testarDadosCompra(cartao,parcela,idade,datasaida,qtdQuartos)){
+  if (!testarDadosCompra(cartao, parcela, qtdQuartos)) {
     res.status(200).json({
-      message:'dados invalidos'
+      message: 'dados invalidos'
     });
     return;
   }
-  console.log("dsadsa");
-  if(gerenciador.comprar(id,cartao,parcela,idade,datasaida,qtdQuartos)){
+  if (gerenciador.comprar(id, cartao, parcela, qtdQuartos)) {
     res.status(200).json({
-      message:'comprada com sucesso'
+      message: 'Quarto reservado com sucesso'
     });
-  }else{
+  } else {
     res.status(200).json({
-      message:'quarto nao disponivel'
+      message: 'quartos não disponíveis'
     });
   }
 });
