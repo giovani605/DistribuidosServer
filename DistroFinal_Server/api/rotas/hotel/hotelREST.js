@@ -32,7 +32,10 @@ router.get('/', (req, res, next) => {
   var local = req.param("local")
   if (local == "")
     local = null;
-  var a = gerenciador.filtrar(checkin,checkout,local);
+  var a = gerenciador.filtrar(checkin, checkout, local);
+
+  // a funcao de resposta vai ser passado como 
+  // parametro ou executa quando o evento de transacao terminar
   res.status(200).json({
     dados: a
   });

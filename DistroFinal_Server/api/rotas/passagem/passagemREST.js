@@ -8,6 +8,9 @@ const Logger = require('Logger/Logger.js');
 const log = new Logger('log.txt');
 log.addLog("iniciei o logger");
 
+const gerenciadorTransacoes = require('gerenciador/gerenciadorTransacoes');
+//var gerente =  new gerenciadorTransacoes();
+//gerente.criarTransacao();
 
 var cont = 0;
 

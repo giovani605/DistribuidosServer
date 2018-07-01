@@ -3,12 +3,11 @@ const express = require('express');
 
 const app = express();
 // importa o arquivo de pssagem
-const passagens = require('./api/rotas/passagem/passagemREST.js');
-const hotel = require('./api/rotas/hotel/hotelREST.js');
+const coordenador = require('./api/rotas/principal/coordenadorREST.js');
 const bodyParser =  require('body-parser');
 app.use(bodyParser.json());
 // defino quem lida com essa rota
-app.use('/passagem',passagens);
-app.use('/hotel',hotel);
+app.use('/',coordenador);
+
 
 module.exports = app;
